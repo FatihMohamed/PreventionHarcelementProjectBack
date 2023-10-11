@@ -6,26 +6,26 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
-      - "3306:3306"
+      - "${APP_PORT}:8000"
+      - "${DB_PORT}:3306"
     depends_on:
       - db
     environment:
       PORT: 8000
       DB_HOST: db
-      DB_PORT: 3306
-      DB_USER: clement
-      DB_PASSWORD: dbpassword
-      DB_NAME: mydatabaseharcelement
+      DB_PORT: "${DB_PORT}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_NAME: "${DB_NAME}"
 
   db:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: mydatabaseharcelement
-      MYSQL_USER: clement
-      MYSQL_PASSWORD: dbpassword
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
       - "./data.sql:/docker-entrypoint-initdb.d/data.sql"

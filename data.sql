@@ -13,6 +13,10 @@ CREATE TABLE `users` (
 
 CREATE TABLE `statistique` (
     `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `id_user` varchar(255)
-)
+    `id_user` int NOT NULL, 
+    `location` varchar(255) NOT NULL
+  )
+
+
+
 --  "picture_path": "schema-professionnel.svg"
